@@ -1,9 +1,9 @@
-ARG CARDIGANN_VER=1.10.1
+ARG CARDIGANN_VER=1.10.1r1
 
 FROM spritsail/alpine:3.7 as builder
 
 ARG CARDIGANN_VER
-ARG REPO=github.com/cardigann/cardigann
+ARG REPO=github.com/spritsail/cardigann-server
 
 ARG GOPATH=/tmp/go
 ARG CGO_ENABLED=0
@@ -19,6 +19,7 @@ RUN apk --no-cache add curl g++ gcc git go make nodejs \
     \
     # setting ARG does not work
  && export PATH=$GOPATH/bin:$PATH \
+ && find -name '*.go' | xargs sed -i "s|github.com/cardigann/cardigann|$REPO|g" \
  && make setup \
  && (cd web && npm install) \
  && make statics \

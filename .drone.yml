@@ -4,7 +4,7 @@ pipeline:
     commands:
       - apk add --no-cache curl jq
       - set -o pipefail
-      - curl -fL https://api.github.com/repos/cardigann/cardigann/releases/latest
+      - curl -fL https://api.github.com/repos/spritsail/cardigann-server/releases/latest
           | jq -r .tag_name
           | tr -d 'v'
           | tee /dev/stderr > .cardigann_tag
@@ -37,14 +37,14 @@ pipeline:
 
   publish:
     image: spritsail/docker-publish
-    when: { branch: [ master ], event: [ push, tag, deployment ] }
+    when: { branch: [ spritsail ], event: [ push, tag, deployment ] }
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
     secrets: [ docker_username, docker_password, microbadger_token ]
     from: cardigann-dev
     repo: spritsail/cardigann
     tags:
-      - 'latest'
-      - '%fileauto: .cardigann_tag'
+      - 'spritsail'
+      - '%fileauto: %prefix: spritsail% .cardigann_tag'
 
   notify:
     image: spritsail/notify
