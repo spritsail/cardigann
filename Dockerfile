@@ -12,7 +12,7 @@ ARG GOARCH=amd64
 
 WORKDIR $GOPATH/src/$REPO
 
-RUN apk --no-cache add curl g++ gcc git go make nodejs \
+RUN apk --no-cache add curl g++ gcc git go make npm\
     \
  && curl -fsSL "https://$REPO/tarball/v$CARDIGANN_VER" \
         | tar xz --strip-components=1 \
