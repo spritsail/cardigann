@@ -1,6 +1,6 @@
 ARG CARDIGANN_VER=1.10.1
 
-FROM spritsail/alpine:3.7 as builder
+FROM spritsail/alpine:3.8 as builder
 
 ARG CARDIGANN_VER
 ARG REPO=github.com/cardigann/cardigann
@@ -27,7 +27,7 @@ RUN apk --no-cache add curl g++ gcc git go make nodejs \
 
 # ~~~~~~~~~~~~~~~~~~~~~~
 
-FROM spritsail/alpine:3.7
+FROM spritsail/alpine:3.8
 
 ARG CARDIGANN_VER
 ENV SUID=913 \
