@@ -1,4 +1,4 @@
-ARG CARDIGANN_VER=1.10.1r1
+ARG CARDIGANN_VER=1.10.2r1
 
 FROM spritsail/alpine:3.7 as builder
 
