@@ -12,11 +12,14 @@ ARG GOARCH=amd64
 
 WORKDIR $GOPATH/src/$REPO
 
-RUN apk --no-cache add curl g++ gcc git go make npm\
+RUN apk --no-cache add curl g++ gcc git go make npm \
     \
  && curl -fsSL "https://$REPO/tarball/v$CARDIGANN_VER" \
         | tar xz --strip-components=1 \
     \
+    # fix golang 1.10 compilation until the next release
+ && curl -fsS https://github.com/cardigann/cardigann/commit/a26b8ae2ab8f217a2e7fc46fbbd2f3133c934b2a.patch \
+        | patch -p1 \
     # setting ARG does not work
  && export PATH=$GOPATH/bin:$PATH \
  && make setup \
